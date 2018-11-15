@@ -1,0 +1,22 @@
+body {
+    width: 640px;
+    background: lightblue;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#timeRemaining {
+    width: 500px;
+    background: lightgray;
+    border-style: double;
+    border-width: 3px;
+    border-color: black;
+
+}
+
+#questionBox {
+    width: 500px;
+    background: lightgray;
+    border-style: double;
+    border-width: 3px;
+    border-color: black;
+}
