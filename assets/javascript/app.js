@@ -41,11 +41,12 @@ console.log("Load Timer Started " + questionTimer);
 // Functions
 
 function gameTimer () {
-    onQuestionScreen = True;
+    onQuestionScreen = true;
     questionTimer = 15;
     intervalId = setInterval (decrement, 1000);
     if (questionTimer === 0) {
         console.log("Timer is done")
+        onQuestionScreen = false;
         // if (turnNumber >0) {
         //     console.log("Turn Number above 0");
         //     answerScreen ();
@@ -67,7 +68,16 @@ function decrement () {
     if (questionTimer ===0) {
         console.log("Timer ran out");
         clearInterval(intervalId);
-        answerScreen();
+        if (onQuestionScreen === true) {
+            onQuestionScreen === false;
+            answerScreen();
+            console.log ("switching to Answer Screen")
+
+        } else if (onQuestionScreen === false) {
+            onQuestionScreen === true;
+            gameTimer ();
+            console.log ("switching to Game Screen")
+        }
     }
 }
 
