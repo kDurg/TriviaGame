@@ -1,8 +1,3 @@
-<script
-src="https://code.jquery.com/jquery-3.3.1.min.js"
-integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-crossorigin="anonymous">
-</script>
 
 
 //Make a trivia game that asks several questions and gives you 4 options to choose. You only have 15 seconds to choose!
@@ -29,10 +24,56 @@ crossorigin="anonymous">
 
 // Variables
 
+var intervalId;
+var questionTimer = 0;
+var userGuess; // In function - will hold user's guess
+var turnNumber = 3; // Question number to stop timer after last question is answered
+var onQuestionScreen = false;
 
+var questionsArray = []; // add questions, answer and filler options all together?
+var questionAnswer; // In Function - this will be a variable pointing to the correct answer in the array 
 
+var wins;
+var losses;
+
+console.log("Load Timer Started " + questionTimer);
 //-------------------------------------------------------------------------------------------------------
 // Functions
+
+function gameTimer () {
+    onQuestionScreen = True;
+    questionTimer = 15;
+    intervalId = setInterval (decrement, 1000);
+    if (questionTimer === 0) {
+        console.log("Timer is done")
+        // if (turnNumber >0) {
+        //     console.log("Turn Number above 0");
+        //     answerScreen ();
+        // }
+    }
+}
+
+function answerScreen() {
+    onQuestionScreen = false;
+    console.log("answerScreen Timer Started | " + "On game screen: " + onQuestionScreen);
+    questionTimer = 10;
+    intervalId = setInterval (decrement, 1000);
+}
+
+function decrement () {
+    questionTimer--;
+    $("#countdownTimer").text(questionTimer);
+    console.log("timer " + questionTimer);
+    if (questionTimer ===0) {
+        console.log("Timer ran out");
+        clearInterval(intervalId);
+        answerScreen();
+    }
+}
+
+
+
+gameTimer ();
 
 
 //-------------------------------------------------------------------------------------------------------
