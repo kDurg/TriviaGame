@@ -23,13 +23,6 @@
 
 
 // Variables
-
-var intervalId;
-var questionTimer = 0;
-var userGuess; // In function - will hold user's guess
-var turnNumber = 3; // Question number to stop timer after last question is answered
-var onQuestionScreen = false;
-
 var questions = {
     q1: "What is the tallest mountain in the United States?",
         a1q1: "Mount Elbert, CO",
@@ -66,9 +59,15 @@ var questions = {
         a2q7: "Bring More Liquor Next Time, You'll Need it",
         a3q7: "Stop Going Into Nature, You Will Die",
         a4q7: "Bring A Camera Next Time, No One Believes Your Terrible Luck",
-}; // add questions, answer and filler options all together?
+}; 
 
 var questionAnswer; // In Function - this will be a variable pointing to the correct answer in the array 
+
+var intervalId;
+var questionTimer = 0;
+var userGuess; // In function - will hold user's guess
+var turnNumber = 0; // Question number to stop timer after last question is answered
+var onQuestionScreen = false;
 
 var wins;
 var losses;
@@ -77,6 +76,7 @@ console.log("Load Timer Started " + questionTimer);
 //-------------------------------------------------------------------------------------------------------
 // Functions
 
+// DONE: Timer Functions
 function gameTimer () {
     onQuestionScreen = true;
     questionTimer = 15;
@@ -84,10 +84,6 @@ function gameTimer () {
     if (questionTimer === 0) {
         console.log("Timer is done")
         onQuestionScreen = false;
-        // if (turnNumber >0) {
-        //     console.log("Turn Number above 0");
-        //     answerScreen ();
-        // }
     }
 }
 
@@ -118,15 +114,45 @@ function decrement () {
     }
 }
 
+// not working: Question Functions
+
+function startScreen (){ //clears the screen and shows the start button
+    console.log ("Start Screen Started");
+    $("#timeRemaining").hide();
+    $("#countdownTimer").hide();
+    $("#questionBox").hide();
+    $("#answerOptions").hide ();
+    $("#startButton").append("<Button><h1> 'Click To Begin' </h1>");
+
+}
+
+function cycleQuestions (){
+    console.log ("cycleQuestions Function Activated"); 
+    console.log(questions.length); //undefined?
+    for (var i= 0; i<questions.length; i++)
+        if (turnNumber === 0) {
+            console.log ("1st Question to Be Displayed")
+            $("#questionBox").text("Question " + (turnNumber+1) + ":  " + questions.q[i])
+        } else { console.log ("Not 1st Question")}
+};
 
 
-gameTimer ();
 
 
 //-------------------------------------------------------------------------------------------------------
 // Main Processes
 
+startScreen();
 
+$("#startButton").on("click", function () {
+    $("#startButton").hide();
+    $("#timeRemaining").show();
+    $("#countdownTimer").show();
+    $("#questionBox").show();
+    $("#answerOptions").show ();
+    // gameTimer ();
+    cycleQuestions ();
+})
 
 
 //-------------------------------------------------------------------------------------------------------
