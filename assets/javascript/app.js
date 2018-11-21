@@ -23,45 +23,45 @@
 
 
 // Variables
-var questions = {
-    q1: "What is the tallest mountain in the United States?",
-        a1q1: "Mount Elbert, CO",
-        a2q1: "Mount Rainier, WA",
-        a3q1: "White Mountain Peak, CA",
-        a4q1: "Denali, AK", //correct answer at 20,310ft
-    q2: "What was the first National Park in the United States?",
-        a1q2: "Yosemite, CA",
-        a2q2: "Glacier, MT",
-        a3q2: "Yellowstone, WY", // Correct answer - 3/1/ 1872
-        a4q2: "Sequoia, CA",
-    q3: "What was the most popular outdoor activity (by participants) in the United States in 2017?",
-        a1q3: "Fishing - Freshwater, Saltwater, Fly", // correct - 49.1 Million
-        a2q3: "Biking - BMX, Road, Mountain",
-        a3q3: "Camping - Car, RV, Backyard",
-        a4q3: "Hiking",
-    q4: "What is the first thing you should do when confronted by a Black Bear?",
-        a1q4: "Calmly Stand Ground", // correct, stand ground until they figure out youre human
-        a2q4: "Yell And Wave Arms Above Head",
-        a3q4: "Speedwalk Backwards While Speaking Outloud",
-        a4q4: "Throw Grenade And Duck", 
-    q5: "If a snake bites you, what should you do?",
-        a1q5: "Move Away From Snake, Call For Help And Lay Still Until Help Arrives", // Correct
-        a2q5: "Have A Friend To Suck Out The Poisen",
-        a3q5: "Apply A Tourniquet, Water And Ice If Available",
-        a4q5: "Pour Skol Vodka On Bite",
-    q6: "What is the first thing you should do to put out a fire",
-        a1q6: "Cover With Dried Leaves To Cut Oxygen To Embers", 
-        a2q6: "Apply Bear Remains Over Top From Previous Explosion",
-        a3q6: "Nothing Once The Flames Die Out",
-        a4q6: "Pour Water, Cover With Soil, Feel For Heat", // Correct: Smokey the Bear approved
-    q7: "If all of the previous situations happen while in nature, what should you do?",
-        a1q7: "Bring More Explosives", 
-        a2q7: "Bring More Liquor Next Time, You'll Need it",
-        a3q7: "Stop Going Into Nature, You Will Die",
-        a4q7: "Bring A Camera Next Time, No One Believes Your Terrible Luck",
-}; 
+var questionsArray = [
+    {
+    question: "What is the tallest mountain in the United States?",
+    choices: ["Mount Elbert, CO", "Mount Rainier, WA" ,"White Mountain Peak, CA","Denali, AK"],
+    answer: 3
+    },
+    {
+    question: "What was the first National Park in the United States?",
+    choices: ["Yosemite, CA", "Glacier, MT", "Yellowstone, WY", "Sequoia, CA"],
+    answer: 2 // Correct answer - 3/1/ 1872
+    },
+    {
+    question: "What was the most popular outdoor activity (by participants) in the United States in 2017?",
+    choices: ["Fishing - Freshwater, Saltwater, Fly", "Biking - BMX, Road, Mountain", "Camping - Car, RV, Backyard", "Hiking"],
+    answer: 0
+    },
+    {
+    question: "What is the first thing you should do when confronted by a Black Bear?",
+    choices: ["Calmly Stand Ground", "Yell And Wave Arms Above Head", "Speedwalk Backwards While Speaking Outloud", "Throw Grenade And Duck"], 
+    answer: 0 // correct, stand ground until they figure out youre human
+    },
+    {
+    question: "If a snake bites you, what should you do?",
+    choices: ["Move Away From Snake, Call For Help And Lay Still Until Help Arrives", "Have A Friend To Suck Out The Poisen", "Apply A Tourniquet, Water And Ice If Available", "Pour Skol Vodka On Bite"],
+    answer: 0, // Correct
+    },
+    {
+    question: "What is the first thing you should do to put out a fire?",
+    choices: ["Cover With Dried Leaves To Cut Oxygen To Embers", "Apply Bear Remains Over Top From Previous Explosion", "Nothing Once The Flames Die Out", "Pour Water, Cover With Soil, Feel For Heat"], 
+    answer: 3 // Correct: Smokey the Bear approved
+    },
+    {
+    question: "If all of the previous situations happen while in nature, what should you do?",
+    choices: ["Bring More Explosives", "Bring More Liquor Next Time, You'll Need it", "Stop Going Into Nature, You Will Die", "Bring A Camera Next Time, No One Believes Your Terrible Luck"],
+    answer: 2
+    }
+]; 
 
-var questionAnswer; // In Function - this will be a variable pointing to the correct answer in the array 
+//var questionAnswer; // In Function - this will be a variable pointing to the correct answer in the array 
 
 var intervalId;
 var questionTimer = 0;
@@ -128,11 +128,11 @@ function startScreen (){ //clears the screen and shows the start button
 
 function cycleQuestions (){
     console.log ("cycleQuestions Function Activated"); 
-    console.log(questions.length); //undefined?
-    for (var i= 0; i<questions.length; i++)
+    console.log(questionsArray.length); //undefined?
+    for (var i= 0; i<questionsArray.length; i++)
         if (turnNumber === 0) {
             console.log ("1st Question to Be Displayed")
-            $("#questionBox").text("Question " + (turnNumber+1) + ":  " + questions.q[i])
+            $("#questionBox").text("Question " + (turnNumber+1) + ":  " + questionsArray.q[i])
         } else { console.log ("Not 1st Question")}
 };
 
@@ -153,6 +153,9 @@ $("#startButton").on("click", function () {
     // gameTimer ();
     cycleQuestions ();
 })
+
+
+//-------------------------------------------------
 
 
 //-------------------------------------------------------------------------------------------------------
