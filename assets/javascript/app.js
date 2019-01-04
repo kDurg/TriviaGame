@@ -69,29 +69,31 @@ var userGuess; // In function - will hold user's guess
 var turnNumber = 0; // Question number to stop timer after last question is answered
 var onQuestionScreen = false;
 
-var wins;
-var losses;
+var points;
+// var losses;
 
 console.log("Load Timer Started " + questionTimer);
 //-------------------------------------------------------------------------------------------------------
 // Functions
 
+function startScreen (){ //clears the screen and shows the start button
+    console.log ("Start Screen Started");
+    $("#timeRemaining").hide();
+    $("#countdownTimer").hide();
+    $("#questionBox").hide();
+    $("#answerOptions").hide ();
+    $("#startButton").append("<Button><h1> 'Click To Begin' </h1>");
+}
+
 // DONE: Timer Functions
 function gameTimer () {
     onQuestionScreen = true;
-    questionTimer = 15;
+    questionTimer = 60;
     intervalId = setInterval (decrement, 1000);
     if (questionTimer === 0) {
         console.log("Timer is done")
         onQuestionScreen = false;
     }
-}
-
-function answerScreen() {
-    onQuestionScreen = false;
-    console.log("answerScreen Timer Started | " + "On game screen: " + onQuestionScreen);
-    questionTimer = 10;
-    intervalId = setInterval (decrement, 1000);
 }
 
 function decrement () {
@@ -114,27 +116,56 @@ function decrement () {
     }
 }
 
-// not working: Question Functions
+function cycleQuestions (){ //NOT WORKING: 
+        console.log ("cycleQuestions Function Activated"); 
+        console.log(questionsArray);
 
-function startScreen (){ //clears the screen and shows the start button
-    console.log ("Start Screen Started");
-    $("#timeRemaining").hide();
-    $("#countdownTimer").hide();
-    $("#questionBox").hide();
-    $("#answerOptions").hide ();
-    $("#startButton").append("<Button><h1> 'Click To Begin' </h1>");
+        // dynamicaly create a new div to show questions 
+        for (var i= 0; i<questionsArray.length; i++) {
+            var newDiv = "question"+ parseInt(i+1);
+            $("#questionBox").append("<div id = "+ newDiv + ">  <p></p><h4>"+ JSON.stringify(questionsArray[i].question)+ "</h4>    </div>");
+            
+            // Dynamically create radio buttons with answers as options
+            for (var j= 0; j<questionsArray[i].choices.length; j++) {
+                var radioBtn = $('<input type= "radio" name= "radiobutton"' + j + '>' + questionsArray[i].choices[j]);
+                radioBtn.text(questionsArray[i].choices[j]);
+                // radioBtn.appendTo("#questionBox");
+                console.log('Choices: ' + questionsArray[0].choices[i]);
+            }
+        }  
+    };
 
+function gradeAnswers() {
+    // need to loop through each question and compare input to answer if time is left
+        // create a loop to go through each question
+            // within each question, run through input and compare with answer
+                // if answer is correct, add one point
+                // if answer is incorrect, 0 points and add question to incorrect array to show at end
+            // once all questions or time runs out have been checked, display new screen with score, percentage and a list of incorrect questions with correct answers
+    if (questionTimer ===!0) {
+        for (var i = 0; i < questionsArray.length; i++) {
+            if ($('radiobutton').val === questionsArray.answer) {
+                points++;
+            }
+        }
+    } else {
+        alert ('Time ran out!');
+    }
+    console.log("grading Answers complete. Score: " + points + " / " + questionsArray.length);
 }
 
-function cycleQuestions (){
-    console.log ("cycleQuestions Function Activated"); 
-    console.log(questionsArray.length); //undefined?
-    for (var i= 0; i<questionsArray.length; i++)
-        if (turnNumber === 0) {
-            console.log ("1st Question to Be Displayed")
-            $("#questionBox").text("Question " + (turnNumber+1) + ":  " + questionsArray.q[i])
-        } else { console.log ("Not 1st Question")}
-};
+// function answerScreen() {
+//     onQuestionScreen = false;
+//     console.log("answerScreen Timer Started | " + "On game screen: " + onQuestionScreen);
+//     questionTimer = 10;
+//     intervalId = setInterval (decrement, 1000);
+// }
+
+
+
+
+
+
 
 
 
@@ -145,6 +176,7 @@ function cycleQuestions (){
 startScreen();
 
 $("#startButton").on("click", function () {
+    points = 0;
     $("#startButton").hide();
     $("#timeRemaining").show();
     $("#countdownTimer").show();
